@@ -62,49 +62,27 @@ class _RegisterPageState extends State<RegisterPage> {
             Container(
               height: 300,
               decoration: BoxDecoration(
-                color: Colors.indigo, // Background color
+                color: Colors.transparent, // Background color
               ),
-              child: Stack(
+              child: const Column(
                 children: [
-                  Positioned(
-                    left: 30,
-                    width: 80,
-                    height: 200,
-                    child: Container(
-                      color: Colors.blue, // Example color for a part of the background
+                  SizedBox(height: 60,),
+                  Icon(Icons.phone_android_rounded, size: 50, color: Colors.black),
+                  SizedBox(height: 60,),
+                  Text(
+                    "HELLO THERE",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 40,
+                      fontWeight: FontWeight.normal,
                     ),
                   ),
-                  Positioned(
-                    left: 140,
-                    width: 80,
-                    height: 150,
-                    child: Container(
-                      color: Colors.green, // Another example color
-                    ),
-                  ),
-                  Positioned(
-                    right: 40,
-                    top: 40,
-                    width: 80,
-                    height: 150,
-                    child: Container(
-                      // This could be replaced with an icon or other UI element
-                      child: Icon(Icons.access_time, size: 40, color: Colors.white),
-                    ),
-                  ),
-                  Positioned(
-                    child: Container(
-                      margin: EdgeInsets.only(top: 50),
-                      child: Center(
-                        child: Text(
-                          "Register",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 40,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
+                  Text(
+                    "Register below with your details",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 17,
+                      fontWeight: FontWeight.normal,
                     ),
                   ),
                 ],
@@ -184,9 +162,9 @@ class _RegisterPageState extends State<RegisterPage> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    child: Text(
-                      'Register',
-                      style: TextStyle(fontSize: 18),
+                    child: const Text(
+                      'Sign Up',
+                      style: TextStyle(fontSize: 18,color: Colors.black),
                     ),
                   ),
                   SizedBox(height: 20),
@@ -195,14 +173,15 @@ class _RegisterPageState extends State<RegisterPage> {
                       Navigator.of(context).pop(); // Go back to login page
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.deepOrangeAccent,
+                      elevation: 0,
+                      backgroundColor: Colors.white,
                       padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
                     child: Text(
-                      'Back to Login',
+                      'Already a member?\n      Login Now',
                       style: TextStyle(fontSize: 18),
                     ),
                   ),

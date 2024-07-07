@@ -26,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
             onPressed: () {
               Navigator.of(ctx).pop();
             },
-            child: Text('Okay'),
+            child: Text('Ok'),
           ),
         ],
       ),
@@ -63,51 +63,56 @@ class _LoginPageState extends State<LoginPage> {
             Container(
               height: 300,
               decoration: BoxDecoration(
-                color: Colors.indigo, // Replace with desired background color
+                color: Colors.transparent, // Replace with desired background color
               ),
-              child: Stack(
+              child: const Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Positioned(
-                    left: 30,
-                    width: 80,
-                    height: 200,
-                    child: Container(
-                      color: Colors.blue, // Example color for a part of the background
+                  // Positioned(
+                  //   left: 30,
+                  //   width: 80,
+                  //   height: 200,
+                  //   child: Container(
+                  //     color: Colors.teal, // Example color for a part of the background
+                  //   ),
+                  // ),
+                  // Positioned(
+                  //   left: 140,
+                  //   width: 80,
+                  //   height: 150,
+                  //   child: Container(
+                  //     color: Colors.white, // Another example color
+                  //   ),
+                  // ),
+                  // Positioned(
+                  //   right: 40,
+                  //   top: 40,
+                  //   width: 80,
+                  //   height: 150,
+                  //   child: Container(
+                  //     // This could be replaced with an icon or other UI element
+                  //     child: Icon(Icons.access_time, size: 40, color: Colors.white),
+                  //   ),
+                  // ),
+                  Icon(Icons.phone_android_rounded, size: 40, color: Colors.black),
+                  SizedBox(height: 60,),
+                  Text(
+                    "Hello Again!",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 40,
+                      fontWeight: FontWeight.normal,
                     ),
                   ),
-                  Positioned(
-                    left: 140,
-                    width: 80,
-                    height: 150,
-                    child: Container(
-                      color: Colors.green, // Another example color
-                    ),
-                  ),
-                  Positioned(
-                    right: 40,
-                    top: 40,
-                    width: 80,
-                    height: 150,
-                    child: Container(
-                      // This could be replaced with an icon or other UI element
-                      child: Icon(Icons.access_time, size: 40, color: Colors.white),
-                    ),
-                  ),
-                  Positioned(
-                    child: Container(
-                      margin: EdgeInsets.only(top: 50),
-                      child: Center(
-                        child: Text(
-                          "Login",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 40,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  // Positioned(
+                  //   child: Container(
+                  //     margin: EdgeInsets.only(top: 50),
+                  //     child: Center(
+                  //       child:
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
             ),
@@ -183,9 +188,9 @@ class _LoginPageState extends State<LoginPage> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    child: Text(
+                    child: const Text(
                       'Login',
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(fontSize: 18,color: Colors.black),
                     ),
                   ),
                   SizedBox(height: 20),
@@ -202,9 +207,9 @@ class _LoginPageState extends State<LoginPage> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    child: Text(
+                    child: const Text(
                       'Sign Up',
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(fontSize: 18,color: Colors.black),
                     ),
                   ),
                 ],
