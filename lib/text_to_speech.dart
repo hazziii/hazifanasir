@@ -7,6 +7,8 @@ class TextToSpeech extends StatelessWidget {
   final TextEditingController textEditingController = TextEditingController();
   speak(String text) async {
     await flutterTts.setLanguage("en-US");
+
+    //await flutterTts.setLanguage("en-US");
     await flutterTts.setPitch(1); //0.5 to 1.5
     await flutterTts.speak(text);
   }
