@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:speech_to_text/speech_to_text.dart';
 import 'package:translation/pages/login_page.dart';
 import 'package:translator/translator.dart';
-
-import '../main.dart';
-
-// void main() {
-//   runApp(MyApp());
-// }
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -64,6 +59,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  //translation code
+
   final outputController = TextEditingController(text: "Result here...");
   final translator = GoogleTranslator();
   String inputText = '';
@@ -81,6 +78,8 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  // code for TTS
+
   final FlutterTts flutterTts = FlutterTts();
 
   void speakInput(String text) async {
@@ -93,6 +92,23 @@ class _HomeScreenState extends State<HomeScreen> {
     await flutterTts.setLanguage(outputLanguage);
     await flutterTts.setPitch(1); //0.5 to 1.5
     await flutterTts.speak(text);
+  }
+
+  // code for STT
+
+  var textSpeech = "Click On Mic To Record";
+  SpeechToText speechToText = SpeechToText();
+  var isListening = false;
+
+  final inputController = TextEditingController();
+
+  void checkMic() async {
+    bool micAvailable = await speechToText.initialize();
+    if (micAvailable) {
+      print("Microphone Available");
+    } else {
+      print("User Denied the use of speech micro");
+    }
   }
 
   @override
@@ -111,6 +127,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 250,
                       ),
                       TextField(
+                        controller: inputController,
                         maxLines: 5,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
@@ -120,6 +137,40 @@ class _HomeScreenState extends State<HomeScreen> {
                           setState(() {
                             inputText = value;
                           });
+                        },
+                      ),
+                      SizedBox(height: 16),
+                      GestureDetector(
+                        child: CircleAvatar(
+                            child: isListening
+                                ? Icon(Icons.record_voice_over)
+                                : Icon(Icons.mic)),
+                        onTap: () async {
+                          if (!isListening) {
+                            bool micAvailable = await speechToText.initialize();
+                            if (micAvailable) {
+                              setState(() {
+                                isListening = true;
+                              });
+                              speechToText.listen(
+                                  listenFor: Duration(seconds: 20),
+                                  onResult: (result) {
+                                    setState(() {
+                                      textSpeech = result.recognizedWords;
+                                      isListening = false;
+                                    });
+                                    setState(() {
+                                      inputController.text = textSpeech;
+                                      inputText = textSpeech;
+                                    });
+                                  });
+                            }
+                          } else {
+                            setState(() {
+                              isListening = false;
+                              speechToText.stop();
+                            });
+                          }
                         },
                       ),
                       SizedBox(height: 16),
@@ -150,8 +201,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 }).toList(),
                               ),
                               IconButton(
-                                onPressed: () =>
-                                    speakInput(inputText),
+                                onPressed: () => speakInput(inputText),
                                 icon: Icon(Icons.volume_up),
                               ),
                             ],
@@ -186,8 +236,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 }).toList(),
                               ),
                               IconButton(
-                                onPressed: () =>
-                                    speakOutput(outputController.text.toString()),
+                                onPressed: () => speakOutput(
+                                    outputController.text.toString()),
                                 icon: Icon(Icons.volume_up),
                               ),
                             ],
