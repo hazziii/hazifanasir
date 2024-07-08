@@ -17,7 +17,7 @@ class AuthenticationWrapper extends StatelessWidget {
           }
           else {
             if (snapshot.hasData) {
-          return const HomePage();
+          return const HomeScreen();
 
             }
             else {

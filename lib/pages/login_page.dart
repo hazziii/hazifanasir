@@ -40,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
         password: _passwordController.text,
       );
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => HomePage()),
+        MaterialPageRoute(builder: (context) => HomeScreen()),
       );
     } catch (e) {
       _showErrorDialog(e.toString());
