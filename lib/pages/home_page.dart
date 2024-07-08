@@ -11,8 +11,7 @@ import '../main.dart';
 // }
 
 class HomePage extends StatelessWidget {
-   const HomePage({super.key});
-
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -82,11 +81,16 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-
   final FlutterTts flutterTts = FlutterTts();
 
-  void speak(String text) async {
-    await flutterTts.setLanguage("en");
+  void speakInput(String text) async {
+    await flutterTts.setLanguage(inputLanguage);
+    await flutterTts.setPitch(1); //0.5 to 1.5
+    await flutterTts.speak(text);
+  }
+
+  void speakOutput(String text) async {
+    await flutterTts.setLanguage(outputLanguage);
     await flutterTts.setPitch(1); //0.5 to 1.5
     await flutterTts.speak(text);
   }
@@ -122,57 +126,71 @@ class _HomeScreenState extends State<HomeScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          DropdownButton<String>(
-                            value: inputLanguage,
-                            onChanged: (newValue) {
-                              setState(() {
-                                inputLanguage = newValue!;
-                              });
-                            },
-                            items: <String>[
-                              'en',
-                              'fr',
-                              'es',
-                              'de',
-                              'ur',
-                              'hi',
-                            ].map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                          ),
-                          IconButton(
-                            onPressed: () => speak(inputText),
-                            icon: Icon(Icons.speaker),
+                          Row(
+                            children: [
+                              DropdownButton<String>(
+                                value: inputLanguage,
+                                onChanged: (newValue) {
+                                  setState(() {
+                                    inputLanguage = newValue!;
+                                  });
+                                },
+                                items: <String>[
+                                  'en',
+                                  'fr',
+                                  'es',
+                                  'de',
+                                  'ur',
+                                  'hi',
+                                ].map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                              ),
+                              IconButton(
+                                onPressed: () =>
+                                    speakInput(inputText),
+                                icon: Icon(Icons.volume_up),
+                              ),
+                            ],
                           ),
                           Icon(Icons.arrow_forward_outlined),
-                          DropdownButton<String>(
-                            value: outputLanguage,
-                            onChanged: (newValue) {
-                              setState(() {
-                                outputLanguage = newValue!;
-                              });
-                            },
-                            items: <String>[
-                              'en',
-                              'fr',
-                              'ur',
-                              'hi',
-                              'ru',
-                              'af',
-                              'bn',
-                              'bs',
-                              'cs',
-                              'ko',
-                              'it',
-                            ].map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
+                          Row(
+                            children: [
+                              DropdownButton<String>(
+                                value: outputLanguage,
+                                onChanged: (newValue) {
+                                  setState(() {
+                                    outputLanguage = newValue!;
+                                  });
+                                },
+                                items: <String>[
+                                  'en',
+                                  'fr',
+                                  'ur',
+                                  'hi',
+                                  'ru',
+                                  'af',
+                                  'bn',
+                                  'bs',
+                                  'cs',
+                                  'ko',
+                                  'it',
+                                ].map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                              ),
+                              IconButton(
+                                onPressed: () =>
+                                    speakOutput(outputController.text.toString()),
+                                icon: Icon(Icons.volume_up),
+                              ),
+                            ],
                           ),
                         ],
                       ),
