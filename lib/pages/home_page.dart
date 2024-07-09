@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:speech_to_text/speech_to_text.dart';
+import 'package:translation/pages/history.dart';
 import 'package:translation/pages/image_to_text.dart';
 import 'package:translation/pages/login_page.dart';
 import 'package:translator/translator.dart';
@@ -77,12 +80,14 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       outputController.text = translated.text;
     });
+    if (inputText.trim().isNotEmpty) {
+      addtoHistory(inputText);
+    }
   }
 
   // code for TTS
 
   final FlutterTts flutterTts = FlutterTts();
-
 
   void speakInput(String text) async {
     await flutterTts.setLanguage(inputLanguage);
@@ -113,9 +118,41 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  // code for firebase history
+
+  getId() {
+    final User? user = FirebaseAuth.instance.currentUser;
+    final uid = user?.uid;
+    return uid;
+  }
+
+  void addtoHistory(String inputData) {
+    String uid = getId();
+
+    final databaseRef = FirebaseDatabase.instance.ref(uid).child(inputData);
+    databaseRef.update({'data': inputData});
+    print('Added to history ' + inputData);
+  }
+
   @override
   Widget build(BuildContext context) {
+    String uid = getId();
+
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => HistoryPage(
+                    userID: uid,
+                  ),
+                ));
+              },
+              icon: Icon(Icons.history)),
+        ],
+        //leading:
+      ),
       body: SafeArea(
           child: SingleChildScrollView(
               child: Padding(
