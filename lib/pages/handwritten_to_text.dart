@@ -11,7 +11,7 @@ class _HomePageState extends State<Homepage>{
   @override
   Widget build(BuildContext context){
     return const Scaffold (
-      body: Center(
+      body: Center(// its nothing but just an empty text field
         child: TextField(),
       )
     );
