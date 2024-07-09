@@ -82,6 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final FlutterTts flutterTts = FlutterTts();
 
+
   void speakInput(String text) async {
     await flutterTts.setLanguage(inputLanguage);
     await flutterTts.setPitch(1); //0.5 to 1.5
