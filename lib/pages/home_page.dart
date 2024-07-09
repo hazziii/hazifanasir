@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:speech_to_text/speech_to_text.dart';
+import 'package:translation/pages/image_to_text.dart';
 import 'package:translation/pages/login_page.dart';
 import 'package:translator/translator.dart';
 
@@ -194,6 +195,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                   'de',
                                   'ur',
                                   'hi',
+                                  'it',
+                                  'ko',
+                                  'cs',
+                                  'bn',
+                                  'af',
                                 ].map<DropdownMenuItem<String>>((String value) {
                                   return DropdownMenuItem<String>(
                                     value: value,
@@ -245,6 +251,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ],
                       ),
+                      IconButton(
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => textRS(),
+                            ));
+                          },
+                          icon: Icon(Icons.camera_alt)),
                       SizedBox(height: 16),
                       ElevatedButton(
                         onPressed: translateText,
