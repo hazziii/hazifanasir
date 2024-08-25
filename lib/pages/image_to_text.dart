@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:clay_containers/widgets/clay_container.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
@@ -69,12 +70,11 @@ class _textRSState extends State<textRS> {
                   ),
                 )
               : Center(
-                  child: Image.network(pickedImage!.path)
-                //   Image.file(
-                //   File(pickedImage!.path),
-                //   height: 400,
-                // )
-          ),
+                  child: //Image.network(pickedImage!.path)
+                      Image.file(
+                  File(pickedImage!.path),
+                  height: 400,
+                )),
           SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -95,9 +95,9 @@ class _textRSState extends State<textRS> {
               ),
             ],
           ),
-          SizedBox(height: 20),
-          Center(child: Text('Recognized Text')),
           SizedBox(height: 30),
+          Center(child: Text('Recognized Text')),
+          SizedBox(height: 10),
           scanning
               ? Padding(
                   padding: const EdgeInsets.only(top: 60),
@@ -106,14 +106,34 @@ class _textRSState extends State<textRS> {
                   ),
                 )
               : Center(
-                  child: AnimatedTextKit(
-                      isRepeatingAnimation: false,
-                      animatedTexts: [
-                        TypewriterAnimatedText(mytext,
-                            textAlign: TextAlign.center,
-                            textStyle: TextStyle(fontWeight: FontWeight.bold)),
-                      ]),
-                ),
+                  child: mytext != ''
+                      ? Column(
+                          children: [
+
+                            AnimatedTextKit(
+                                isRepeatingAnimation: false,
+                                animatedTexts: [
+                                  TypewriterAnimatedText(mytext,
+                                      textAlign: TextAlign.center,
+                                      textStyle: TextStyle(
+                                          fontWeight: FontWeight.bold)),
+                                ]),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            IconButton(
+                                onPressed: () {
+                                  Clipboard.setData(
+                                      ClipboardData(text: mytext));
+                                },
+                                icon: Icon(Icons.copy_rounded)),
+                            Text(
+                              'Copy to Clipboard',
+                              style: TextStyle(fontSize: 10),
+                            ),
+                          ],
+                        )
+                      : Text('')),
         ],
       ),
     );
