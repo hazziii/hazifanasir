@@ -68,8 +68,8 @@ class _HomeScreenState extends State<HomeScreen> {
   final outputController = TextEditingController(text: "Result here...");
   final translator = GoogleTranslator();
   String inputText = '';
-  String inputLanguage = 'en';
-  String outputLanguage = 'fr';
+  String inputLanguage = 'English';
+  String outputLanguage = 'French';
 
   Future<void> translateText() async {
     final translated = await translator.translate(
@@ -226,17 +226,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                   });
                                 },
                                 items: <String>[
-                                  'en',
-                                  'fr',
-                                  'es',
-                                  'de',
-                                  'ur',
-                                  'hi',
-                                  'it',
-                                  'ko',
-                                  'cs',
-                                  'bn',
-                                  'af',
+                                  'English',
+                                  'French',
+                                  'Spanish',
+                                  'German',
+                                  'Urdu',
+                                  'Hindi',
+                                  'Italian',
+                                  'Korean',
+                                  'Chinese',
+                                  'Bengali',
+                                  'Afrikaans',
                                 ].map<DropdownMenuItem<String>>((String value) {
                                   return DropdownMenuItem<String>(
                                     value: value,
@@ -261,17 +261,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                   });
                                 },
                                 items: <String>[
-                                  'en',
-                                  'fr',
-                                  'ur',
-                                  'hi',
-                                  'ru',
-                                  'af',
-                                  'bn',
-                                  'bs',
-                                  'cs',
-                                  'ko',
-                                  'it',
+                                  'English',
+                                  'French',
+                                  'Urdu',
+                                  'Hindi',
+                                  'German',
+                                  'Afrikaans',
+                                  'Bengali',
+                                  'Spanish',
+                                  'Chinese',
+                                  'Korean',
+                                  'Italian',
                                 ].map<DropdownMenuItem<String>>((String value) {
                                   return DropdownMenuItem<String>(
                                     value: value,
