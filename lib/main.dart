@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:translation/authentication/authentication_wrapper.dart';
+import 'package:translation/authentication/Authentication_wrapper.dart';
 import 'firebase_options.dart';
 
 void main() async {
