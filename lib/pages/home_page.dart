@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -69,13 +68,26 @@ class _HomeScreenState extends State<HomeScreen> {
   final translator = GoogleTranslator();
   String inputText = '';
   String inputLanguage = 'English';
-  String outputLanguage = 'French';
+  String outputLanguage = 'English';
+
+  Map swapCodes = {
+    'English': 'en',
+    'French': 'fr',
+    'Spanish': 'es',
+    'Urdu': 'ur',
+    'Hindi': 'hi',
+    'Italian': 'it',
+    'Korean': 'ko',
+    'Chinese': 'cs',
+    'Bengali': 'bn',
+    'Afrikaans': 'af',
+  };
 
   Future<void> translateText() async {
     final translated = await translator.translate(
       inputText,
-      from: inputLanguage,
-      to: outputLanguage,
+      from: swapCodes[inputLanguage],
+      to: swapCodes[outputLanguage],
     );
     setState(() {
       outputController.text = translated.text;
@@ -90,13 +102,13 @@ class _HomeScreenState extends State<HomeScreen> {
   final FlutterTts flutterTts = FlutterTts();
 
   void speakInput(String text) async {
-    await flutterTts.setLanguage(inputLanguage);
+    await flutterTts.setLanguage(swapCodes[inputLanguage]);
     await flutterTts.setPitch(1); //0.5 to 1.5
     await flutterTts.speak(text);
   }
 
   void speakOutput(String text) async {
-    await flutterTts.setLanguage(outputLanguage);
+    await flutterTts.setLanguage(swapCodes[outputLanguage]);
     await flutterTts.setPitch(1); //0.5 to 1.5
     await flutterTts.speak(text);
   }
@@ -136,8 +148,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    inputController.addListener(
+      () {
+        translateText();
+      },
+    );
     String uid = getId();
-
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -172,6 +188,16 @@ class _HomeScreenState extends State<HomeScreen> {
                           border: OutlineInputBorder(),
                           hintText: "Enter Text to translate",
                         ),
+                        onTapOutside: (event) {
+                          translateText;
+                        },
+                        onSubmitted: (value) {
+                          translateText;
+                        },
+                        onTap: () => {translateText},
+                        onEditingComplete: () {
+                          translateText;
+                        },
                         onChanged: (value) {
                           setState(() {
                             inputText = value;
@@ -229,7 +255,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                   'English',
                                   'French',
                                   'Spanish',
-                                  'German',
                                   'Urdu',
                                   'Hindi',
                                   'Italian',
@@ -263,15 +288,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                 items: <String>[
                                   'English',
                                   'French',
+                                  'Spanish',
                                   'Urdu',
                                   'Hindi',
-                                  'German',
-                                  'Afrikaans',
-                                  'Bengali',
-                                  'Spanish',
-                                  'Chinese',
-                                  'Korean',
                                   'Italian',
+                                  'Korean',
+                                  'Chinese',
+                                  'Bengali',
+                                  'Afrikaans',
                                 ].map<DropdownMenuItem<String>>((String value) {
                                   return DropdownMenuItem<String>(
                                     value: value,
