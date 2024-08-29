@@ -8,6 +8,13 @@ import 'package:image_picker/image_picker.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 
 class textRS extends StatefulWidget {
+  var backColor, barColor, textColor;
+  textRS({
+    super.key,
+    required this.backColor,
+    required this.barColor,
+    required this.textColor,
+  });
   @override
   _textRSState createState() => _textRSState();
 }
@@ -52,8 +59,10 @@ class _textRSState extends State<textRS> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Text Recognition App'),
+      backgroundColor: widget.backColor,
+      appBar: AppBar(iconTheme: IconThemeData(color: widget.textColor),
+        backgroundColor: widget.barColor,
+        title: Text('Text Recognition App',style: TextStyle(color: widget.textColor),),
       ),
       body: ListView(
         shrinkWrap: true,
@@ -62,10 +71,10 @@ class _textRSState extends State<textRS> {
               ? Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
-                  child: ClayContainer(
+                  child: ClayContainer(color: widget.barColor,
                     height: 400,
                     child: Center(
-                      child: Text('No Image Selected'),
+                      child: Text('No Image Selected',style: TextStyle(color: widget.textColor)),
                     ),
                   ),
                 )
@@ -96,7 +105,7 @@ class _textRSState extends State<textRS> {
             ],
           ),
           SizedBox(height: 30),
-          Center(child: Text('Recognized Text')),
+          Center(child: Text('Recognized Text',style: TextStyle(color: widget.textColor),)),
           SizedBox(height: 10),
           scanning
               ? Padding(
@@ -109,14 +118,13 @@ class _textRSState extends State<textRS> {
                   child: mytext != ''
                       ? Column(
                           children: [
-
                             AnimatedTextKit(
                                 isRepeatingAnimation: false,
                                 animatedTexts: [
                                   TypewriterAnimatedText(mytext,
                                       textAlign: TextAlign.center,
                                       textStyle: TextStyle(
-                                          fontWeight: FontWeight.bold)),
+                                          fontWeight: FontWeight.bold,color: widget.textColor)),
                                 ]),
                             SizedBox(
                               height: 10,
@@ -126,10 +134,10 @@ class _textRSState extends State<textRS> {
                                   Clipboard.setData(
                                       ClipboardData(text: mytext));
                                 },
-                                icon: Icon(Icons.copy_rounded)),
+                                icon: Icon(Icons.copy_rounded,color: widget.textColor,)),
                             Text(
                               'Copy to Clipboard',
-                              style: TextStyle(fontSize: 10),
+                              style: TextStyle(fontSize: 10,color: widget.textColor),
                             ),
                           ],
                         )
