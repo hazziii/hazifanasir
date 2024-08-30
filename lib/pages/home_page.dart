@@ -64,11 +64,35 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   //translation code
 
+  bool darkMode = false;
+
+  var backColor = Colors.white;
+  var barColor = Colors.white;
+  var textColor = Colors.black;
+
   final outputController = TextEditingController(text: "Result here...");
   final translator = GoogleTranslator();
   String inputText = '';
   String inputLanguage = 'English';
   String outputLanguage = 'English';
+
+  void setLightMode() {
+    setState(() {
+      backColor = Colors.white;
+      barColor = Colors.white;
+      textColor = Colors.black;
+      darkMode = false;
+    });
+  }
+
+  void setDarkMode() {
+    setState(() {
+      backColor = Colors.black87;
+      barColor = Colors.black;
+      textColor = Colors.white;
+      darkMode = true;
+    });
+  }
 
   Map swapCodes = {
     'English': 'en',
@@ -154,8 +178,25 @@ class _HomeScreenState extends State<HomeScreen> {
       },
     );
     String uid = getId();
+
     return Scaffold(
+      backgroundColor: backColor,
       appBar: AppBar(
+        backgroundColor: barColor,
+        leading: darkMode == false
+            ? IconButton(
+                onPressed: () {
+                  setDarkMode();
+                },
+                icon: Icon(Icons.dark_mode_rounded))
+            : IconButton(
+                onPressed: () {
+                  setLightMode();
+                },
+                icon: Icon(
+                  Icons.light_mode_rounded,
+                  color: Colors.white,
+                )),
         actions: [
           IconButton(
               onPressed: () {
@@ -165,7 +206,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ));
               },
-              icon: Icon(Icons.history)),
+              icon: Icon(
+                Icons.history,
+                color: textColor,
+              )),
         ],
         //leading:
       ),
@@ -182,9 +226,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 250,
                       ),
                       TextField(
+                        style: TextStyle(color: textColor),
                         controller: inputController,
                         maxLines: 5,
                         decoration: InputDecoration(
+                          hintStyle: TextStyle(color: textColor),
                           border: OutlineInputBorder(),
                           hintText: "Enter Text to translate",
                         ),
@@ -245,6 +291,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Row(
                             children: [
                               DropdownButton<String>(
+                                style: TextStyle(color: textColor),
                                 value: inputLanguage,
                                 onChanged: (newValue) {
                                   setState(() {
@@ -271,14 +318,21 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               IconButton(
                                 onPressed: () => speakInput(inputText),
-                                icon: Icon(Icons.volume_up),
+                                icon: Icon(
+                                  Icons.volume_up,
+                                  color: textColor,
+                                ),
                               ),
                             ],
                           ),
-                          Icon(Icons.arrow_forward_outlined),
+                          Icon(
+                            Icons.arrow_forward_outlined,
+                            color: textColor,
+                          ),
                           Row(
                             children: [
                               DropdownButton<String>(
+                                style: TextStyle(color: textColor),
                                 value: outputLanguage,
                                 onChanged: (newValue) {
                                   setState(() {
@@ -306,7 +360,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               IconButton(
                                 onPressed: () => speakOutput(
                                     outputController.text.toString()),
-                                icon: Icon(Icons.volume_up),
+                                icon: Icon(
+                                  Icons.volume_up,
+                                  color: textColor,
+                                ),
                               ),
                             ],
                           ),
@@ -315,10 +372,17 @@ class _HomeScreenState extends State<HomeScreen> {
                       IconButton(
                           onPressed: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => textRS(),
+                              builder: (context) => textRS(
+                                backColor: backColor,
+                                barColor: barColor,
+                                textColor: textColor,
+                              ),
                             ));
                           },
-                          icon: Icon(Icons.camera_alt)),
+                          icon: Icon(
+                            Icons.camera_alt,
+                            color: textColor,
+                          )),
                       SizedBox(height: 16),
                       ElevatedButton(
                         onPressed: translateText,
@@ -331,9 +395,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       SizedBox(height: 30),
                       TextField(
+                        style: TextStyle(color: textColor),
                         controller: outputController,
                         maxLines: 5,
                         decoration: InputDecoration(
+                          hintStyle: TextStyle(color: textColor),
                           border: OutlineInputBorder(),
                         ),
                         onChanged: (value) {
