@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:translation/pages/login_page.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -39,6 +41,16 @@ class _RegisterPageState extends State<RegisterPage> {
         email: _emailController.text,
         password: _passwordController.text,
       );
+      // Show a toast message after successful registration
+      Fluttertoast.showToast(
+        msg: "Successfully signed up",  // Toast message content
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 8,
+        backgroundColor: Colors.teal,
+        textColor: Colors.white,
+        fontSize: 30.0,
+      );
       Navigator.of(context).pop(); // Go back to the login page
     } catch (e) {
       _showErrorDialog(e.toString());
@@ -75,6 +87,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       color: Colors.black,
                       fontSize: 40,
                       fontWeight: FontWeight.normal,
+
                     ),
                   ),
                   Text(
@@ -83,8 +96,10 @@ class _RegisterPageState extends State<RegisterPage> {
                       color: Colors.black,
                       fontSize: 17,
                       fontWeight: FontWeight.normal,
+
                     ),
                   ),
+
                 ],
               ),
             ),
@@ -132,6 +147,18 @@ class _RegisterPageState extends State<RegisterPage> {
                             validator: (text) {
                               if (text == null || text.trim().isEmpty) {
                                 return 'Password is empty';
+                              }
+                              // Check if the password contains at least one uppercase letter
+                              if (!RegExp(r'[A-Z]').hasMatch(text)) {
+                                return 'Password must contain at least one uppercase letter';
+                              }
+                              // Check if the password contains at least one digit
+                              if (!RegExp(r'[0-9]').hasMatch(text)) {
+                                return 'Password must contain at least one number';
+                              }
+                              // Check if the password contains at least one special character
+                              if (!RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(text)) {
+                                return 'Password must contain at least one special character';
                               }
                               return null;
                             },

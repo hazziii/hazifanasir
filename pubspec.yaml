@@ -47,6 +47,7 @@ dependencies:
   clay_containers: ^0.3.4
   cloud_firestore: ^5.1.0
   firebase_database: ^11.0.3
+  fluttertoast: ^8.2.8
 
 dev_dependencies:
   flutter_test:

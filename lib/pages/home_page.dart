@@ -107,6 +107,18 @@ class _HomeScreenState extends State<HomeScreen> {
     'Chinese': 'cs',
     'Bengali': 'bn',
     'Afrikaans': 'af',
+    'Arabic': 'ar',
+    'Azerbaijani':'az',
+    'German':'de',
+    'Greek':'el',
+    'Gujarati':'gu',
+    'Indonesian':'id',
+    'Latin':'la',
+    'Marathi':'mr',
+    'Nepali':'ne',
+    'Punjabi':'pa',
+
+
   };
 
   Future<void> translateText() async {
@@ -312,6 +324,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                   'Chinese',
                                   'Bengali',
                                   'Afrikaans',
+                                  'Arabic',
+                                  'Azerbaijani',
+                                  'German',
+                                  'Greek',
+                                  'Gujarati',
+                                  'Indonesian',
+                                  'Latin',
+                                  'Marathi',
+                                  'Nepali',
+                                  'Punjabi',
+
+
                                 ].map<DropdownMenuItem<String>>((String value) {
                                   return DropdownMenuItem<String>(
                                     value: value,
@@ -354,6 +378,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                   'Chinese',
                                   'Bengali',
                                   'Afrikaans',
+                                  'Arabic',
+                                  'Azerbaijani',
+                                  'German',
+                                  'Greek',
+                                  'Gujarati',
+                                  'Indonesian',
+                                  'Latin',
+                                  'Marathi',
+                                  'Nepali',
+                                  'Punjabi',
                                 ].map<DropdownMenuItem<String>>((String value) {
                                   return DropdownMenuItem<String>(
                                     value: value,
