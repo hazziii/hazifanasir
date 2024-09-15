@@ -1,4 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_tts/flutter_tts.dart';
@@ -6,6 +7,7 @@ import 'package:speech_to_text/speech_to_text.dart';
 import 'package:translation/pages/history.dart';
 import 'package:translation/pages/image_to_text.dart';
 import 'package:translation/pages/login_page.dart';
+import 'package:translation/pages/review.dart';
 import 'package:translator/translator.dart';
 
 class HomePage extends StatelessWidget {
@@ -228,7 +230,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       TextField(
                         style: TextStyle(color: textColor),
                         controller: inputController,
-                        maxLines: 5,
+                        maxLines: null,
                         decoration: InputDecoration(
                           hintStyle: TextStyle(color: textColor),
                           border: OutlineInputBorder(),
@@ -291,6 +293,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Row(
                             children: [
                               DropdownButton<String>(
+                                dropdownColor: backColor,
                                 style: TextStyle(color: textColor),
                                 value: inputLanguage,
                                 onChanged: (newValue) {
@@ -332,6 +335,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Row(
                             children: [
                               DropdownButton<String>(
+                                dropdownColor: backColor,
                                 style: TextStyle(color: textColor),
                                 value: outputLanguage,
                                 onChanged: (newValue) {
@@ -395,9 +399,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       SizedBox(height: 30),
                       TextField(
+                        maxLines: null,
                         style: TextStyle(color: textColor),
                         controller: outputController,
-                        maxLines: 5,
                         decoration: InputDecoration(
                           hintStyle: TextStyle(color: textColor),
                           border: OutlineInputBorder(),
@@ -407,7 +411,116 @@ class _HomeScreenState extends State<HomeScreen> {
                             inputText = value;
                           });
                         },
-                      )
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Center(
+                        child: TextButton.icon(
+                          style: TextButton.styleFrom(
+                            backgroundColor: textColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
+                          ),
+                          onPressed: () {
+                            showAlertDialog(BuildContext context) {
+                              // set up the buttons
+                              Widget cancelButton = ElevatedButton(
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.all(Colors.black87),
+                                  shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                  )),
+                                ),
+                                child: const Text("Cancel",
+                                    style: TextStyle(color: Colors.white)),
+                                onPressed: () {
+                                  Navigator.of(context, rootNavigator: true)
+                                      .pop();
+                                },
+                              );
+                              Widget yesButton = ElevatedButton(
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.all(Colors.black87),
+                                  shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                  )),
+                                ),
+                                child: const Text(
+                                  "Yes",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                onPressed: () async {
+                                  await FirebaseAuth.instance.signOut();
+                                  //createToast('Logged Out');
+                                  setState(() {});
+                                  Navigator.of(context, rootNavigator: true)
+                                      .pop();
+                                  Navigator.pushReplacement(
+                                      context,
+                                      CupertinoPageRoute(
+                                          builder: (context) =>
+                                              const LoginPage()));
+                                },
+                              );
+                              AlertDialog alert = AlertDialog(
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(30.0))),
+                                title: const Text("Confirmation"),
+                                content:
+                                    const Text("Would you like to Logout?"),
+                                actions: [
+                                  cancelButton,
+                                  yesButton,
+                                ],
+                              );
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return alert;
+                                },
+                              );
+                            }
+
+                            showAlertDialog(context);
+                          },
+                          icon: Icon(
+                            Icons.logout_rounded,
+                            color: backColor,
+                          ),
+                          label: Text(
+                            'Logout',
+                            style: TextStyle(color: backColor),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      TextButton(
+                          style: TextButton.styleFrom(
+                            backgroundColor: textColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => ReviewPage(),
+                            ));
+                          },
+                          child: Text(
+                            'Review Us',
+                            style: TextStyle(color: backColor),
+                          ))
                     ],
                   )))),
     );
