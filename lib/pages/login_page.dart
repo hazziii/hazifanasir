@@ -15,6 +15,10 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
+  final loginMsg = SnackBar(
+    content: Text('Logged In'),
+  );
+
   void _showErrorDialog(String message) {
     showDialog(
       context: context,
@@ -42,6 +46,8 @@ class _LoginPageState extends State<LoginPage> {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => HomeScreen()),
       );
+      ScaffoldMessenger.of(context).showSnackBar(loginMsg);
+
     } catch (e) {
       _showErrorDialog(e.toString());
     }
