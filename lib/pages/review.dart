@@ -8,7 +8,7 @@ class ReviewPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(iconTheme: IconThemeData(color: Colors.white),
 
-        backgroundColor: Colors.black87,
+        backgroundColor: Colors.indigo,
         title: Text('Leave us a Review',style: TextStyle(color: Colors.white),),
       ),
       body: SafeArea(bottom: true,
@@ -17,9 +17,9 @@ class ReviewPage extends StatelessWidget {
             SizedBox(height: 20),
             TextField(
               maxLines: 6,
-              style: TextStyle(color: Colors.black),
+              style: TextStyle(color: Colors.indigo),
               decoration: InputDecoration(
-                hintStyle: TextStyle(color: Colors.black),
+                hintStyle: TextStyle(color: Colors.indigo),
                 border: OutlineInputBorder(),
               ),
             ),
@@ -28,7 +28,7 @@ class ReviewPage extends StatelessWidget {
             ),
             TextButton(
                 style: TextButton.styleFrom(
-                  backgroundColor: Colors.black,
+                  backgroundColor: Colors.indigo,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0),
                   ),
