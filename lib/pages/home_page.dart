@@ -348,13 +348,23 @@ class _HomeScreenState extends State<HomeScreen> {
                                 icon: Icon(
                                   Icons.volume_up,
                                   color: textColor,
+
                                 ),
                               ),
                             ],
                           ),
-                          Icon(
-                            Icons.arrow_forward_outlined,
-                            color: textColor,
+                          InkWell(
+                            onTap: () {
+                              var temp;
+                              temp = inputLanguage;
+                              inputLanguage = outputLanguage;
+                              outputLanguage = temp;
+                              setState(() {});
+                            },
+                            child: Icon(
+                              Icons.swap_horiz_rounded,
+                              color: textColor,
+                            ),
                           ),
                           Row(
                             children: [
