@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:translation/pages/home_page.dart';
 import 'package:translation/pages/register_page.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -51,6 +52,7 @@ class _LoginPageState extends State<LoginPage> {
     } catch (e) {
       _showErrorDialog(e.toString());
     }
+
   }
 
   @override
@@ -185,6 +187,15 @@ class _LoginPageState extends State<LoginPage> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         _login();
+                        Fluttertoast.showToast(
+                            msg: "Successfully login",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.CENTER,
+                            timeInSecForIosWeb: 8,
+                            backgroundColor: Colors.teal,
+                            textColor: Colors.white,
+                            fontSize: 30.0
+                        );
                       }
                     },
                     style: ElevatedButton.styleFrom(
