@@ -473,7 +473,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               Widget cancelButton = ElevatedButton(
                                 style: ButtonStyle(
                                   backgroundColor:
-                                      MaterialStateProperty.all(Colors.black87),
+                                      MaterialStateProperty.all(Colors.indigo),
                                   shape: MaterialStateProperty.all<
                                           RoundedRectangleBorder>(
                                       RoundedRectangleBorder(
