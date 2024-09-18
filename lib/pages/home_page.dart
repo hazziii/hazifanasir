@@ -348,6 +348,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 icon: Icon(
                                   Icons.volume_up,
                                   color: textColor,
+
                                 ),
                               ),
                             ],
