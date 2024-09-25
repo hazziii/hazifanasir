@@ -108,17 +108,15 @@ class _HomeScreenState extends State<HomeScreen> {
     'Bengali': 'bn',
     'Afrikaans': 'af',
     'Arabic': 'ar',
-    'Azerbaijani':'az',
-    'German':'de',
-    'Greek':'el',
-    'Gujarati':'gu',
-    'Indonesian':'id',
-    'Latin':'la',
-    'Marathi':'mr',
-    'Nepali':'ne',
-    'Punjabi':'pa',
-
-
+    'Azerbaijani': 'az',
+    'German': 'de',
+    'Greek': 'el',
+    'Gujarati': 'gu',
+    'Indonesian': 'id',
+    'Latin': 'la',
+    'Marathi': 'mr',
+    'Nepali': 'ne',
+    'Punjabi': 'pa',
   };
 
   Future<void> translateText() async {
@@ -235,9 +233,24 @@ class _HomeScreenState extends State<HomeScreen> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       Image.asset(
-                        "assets/img.png",
+                        "assets/bg.png",
                         fit: BoxFit.contain,
-                        height: 250,
+                        height: 200,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Center(
+                        child: Text(
+                          'Multi Translator',
+                          style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                              color: textColor),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
                       ),
                       TextField(
                         style: TextStyle(color: textColor),
@@ -334,8 +347,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                   'Marathi',
                                   'Nepali',
                                   'Punjabi',
-
-
                                 ].map<DropdownMenuItem<String>>((String value) {
                                   return DropdownMenuItem<String>(
                                     value: value,
@@ -348,7 +359,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                 icon: Icon(
                                   Icons.volume_up,
                                   color: textColor,
-
                                 ),
                               ),
                             ],
