@@ -15,8 +15,9 @@ class ReviewPage extends StatelessWidget {
   void saveReview(String inputData) {
     String uid = getId();
 
-    final databaseRef = FirebaseDatabase.instance.ref(uid).child(inputData);
-    databaseRef.update({'review': inputData});
+    final databaseRef =
+        FirebaseDatabase.instance.ref('Reviews').child(uid).child(inputData);
+    databaseRef.update({'Value ': inputData});
     print('Added to history ' + inputData);
   }
 
